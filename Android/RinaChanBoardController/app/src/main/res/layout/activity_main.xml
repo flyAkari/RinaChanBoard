@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:src="@drawable/fullbg"/>
+        <ImageView
+            android:id="@+id/iv_left_eye"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="26.9dp"
+            android:layout_marginTop="0.5dp" />
+        <ImageView
+            android:id="@+id/iv_right_eye"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="173.1dp"
+            android:layout_marginTop="0.5dp" />
+        <ImageView
+            android:id="@+id/iv_left_cheek"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="2.5dp"
+            android:layout_marginTop="61.2dp" />
+        <ImageView
+            android:id="@+id/iv_right_cheek"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="197.5dp"
+            android:layout_marginTop="61.2dp" />
+        <ImageView
+            android:id="@+id/iv_left_mouth"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="51dp"
+            android:layout_marginTop="98dp" />
+        <ImageView
+            android:id="@+id/iv_right_mouth"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="149dp"
+            android:layout_marginTop="98dp" />
+
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_left_eye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_right_eye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_cheek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_mouth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="send"
+            android:textSize="11sp"
+            />
+
+        <CheckBox
+            android:id="@+id/cb_eye_sync"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eye Sync" />
+
+        <CheckBox
+            android:id="@+id/cb_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send Instantly" />
+
+    </LinearLayout>
+</LinearLayout>
