@@ -1,21 +1,3 @@
-/**********************************************************************
- * 项目：24x16点阵璃奈板
- * 硬件：适用于NodeMCU ESP8266 + MAX7219驱动的8x8点阵模块6个串联
- * 作者：flyAkari 会飞的阿卡林 bilibili UID:751219
- * 日期：2022/04/29
- **********************************************************************/
-//硬件连接说明：
-//MAX7219 --- ESP8266
-//  VCC   --- VV(5V)
-//  GND   --- G (GND)
-//  DIN   --- D7(GPIO13)
-//  CS    --- D1(GPIO5)
-//  CLK   --- D5(GPIO14)
-/**********************************************************************
- * 使用说明：
- * 需配合APP一起使用！自己修改代码中的WiFi名和密码，可以手机开热点用。
-***********************************************************************/
-
 #include <Arduino.h>
 #include <LedControl_HW_SPI.h>
 //#include <LedControl_SW_SPI.h>
@@ -23,17 +5,17 @@
 #include <WiFiUdp.h>
 #include <ESP8266HTTPClient.h>
 
-const char *ssid = "WiFiSSID";         // WiFi名
-const char *password = "WIFIPASSWORD"; // WiFi密码
+const char *ssid = "XiaoMi_WiFi";         // WiFi Name
+const char *password = "25721520abcabb"; // WiFi Password
 
-unsigned int localPort = 8888; // local port to listen on
+unsigned int localPort = 8888;     // local port to listen on
 const unsigned long HTTP_TIMEOUT = 5000;
 WiFiClient client;
 HTTPClient http;
 
 // buffers for receiving and sending data
 char packetBuffer[UDP_TX_PACKET_MAX_SIZE + 1]; // buffer to hold incoming packet,
-char ReplyBuffer[] = "RinaboardIsOn";          // a string to send back
+char ReplyBuffer[] = "RinaboardIsOn";      // a string to send back
 
 WiFiUDP Udp;
 
@@ -45,51 +27,55 @@ char cur_ip[17];
 //https://xantorohara.github.io/led-matrix-editor/#0018181818000000|0018181818040000|0000442810000000|0006182018060000|00183c2c18000000|003c020000000000|00007e0000000000|02057e0000000000|1000102044443800|1000101010100000|00183c0c00000000|0018181c10200000|00001e2018060000|10284482926c0000|3c66e78181e7663c|0010207e20100000|0008047e04080000|0044281028440000|103c503814781000|0038444444380000
 const uint64_t EYES[] = {
     0x0,
-    0x0018181818000000, //    |
-    0x0018181818040000, //   `|
-    0x0000442810000000, //    ^
-    0x0006182018060000, //    >
-    0x00183c2c18000000, //    0
-    0x003c020000000000, //   `-
-    0x00007e0000000000, //    -
-    0x02057e0000000000, //   .-
-    0x1000102044443800, //    ?
-    0x1000101010100000, //    !
-    0x00183c0c00000000, //
-    0x0018181c10200000, //    イ
-    0x00001e2018060000, //    >
-    0x10284482926c0000, //    ?
-    0x3c66e78181e7663c, //    +
-    0x0010207e20100000, //    →
-    0x0008047e04080000, //    ←
-    0x0044281028440000, //    x
-    0x103c503814781000, //    $
-    0x0038444444380000  //    o
+    0x0018181818000000, //1     |
+    0x0018181818040000, //2    `|
+    0x0000442810000000, //3     ^
+    0x0006182018060000, //4     >
+    0x00183c2c18000000, //5     0
+    0x003c020000000000, //6    `-
+    0x00007e0000000000, //7     -
+    0x02057e0000000000, //8    .-
+    0x1000102044443800, //9     ?
+    0x1000101010100000, //10    !
+    0x00183c0c00000000, //11
+    0x0018181c10200000, //12    イ
+    0x00001e2018060000, //13    >
+    0x10284482926c0000, //14    ?
+    0x3c66e78181e7663c, //15    +
+    0x0010207e20100000, //16    →
+    0x0008047e04080000, //17    ←
+    0x0044281028440000, //18    x
+    0x103c503814781000, //19    $
+    0x0038444444380000  //20    o
 };
 
-//https://xantorohara.github.io/led-matrix-editor/#000000e000000000|000000e010000000|000000e010080000|0000804020000000|0080402010f00000|00c0201010f00000|0000804020e00000|00f0101020c00000|0000f008f8000000|0000804040800000|8040202040800000|0080404040408000
+//https://xantorohara.github.io/led-matrix-editor/#000000e000000000|000000e010000000|000000e010080000|0000804020000000|0080402010f00000|00c0201010f00000|0000804020e00000|00f0101020c00000|0000f008f8000000|0000804040800000|8040202040800000|0080404040408000|0080404040404080|0000f010e0000000
 const uint64_t MOUTHES[] = {
     0x0,
-    0x000000e000000000,
-    0x000000e010000000,
-    0x000000e010080000,
-    0x0000804020000000,
-    0x0080402010f00000,
-    0x00c0201010f00000,
-    0x0000804020e00000,
-    0x00f0101020c00000,
-    0x0000f008f8000000,
-    0x0000804040800000,
-    0x8040202040800000,
-    0x0080404040408000};
+    0x000000e000000000, //1
+    0x000000e010000000, //2
+    0x000000e010080000, //3
+    0x0000804020000000, //4
+    0x0080402010f00000, //5
+    0x00c0201010f00000, //6
+    0x0000804020e00000, //7
+    0x00f0101020c00000, //8
+    0x0000f008f8000000, //9
+    0x0000804040800000, //10
+    0x8040202040800000, //11
+    0x0080404040408000, //12
+    0x0080404040404080, //13
+    0x0000f010e0000000  //14
+}; 
 
-//https://xantorohara.github.io/led-matrix-editor/#0000000000000000|0000001800000000|0000002850000000|0000002a54000000|0000000028000000
+//https://xantorohara.github.io/led-matrix-editor/#0000001800000000|0000002850000000|0000002a54000000|0000000028000000
 const uint64_t CHEEKS[] = {
     0x0,
-    0x0000001800000000,
-    0x0000002850000000,
-    0x0000002a54000000,
-    0x0000000028000000};
+    0x0000001800000000, //1
+    0x0000002850000000, //2
+    0x0000002a54000000, //3
+    0x0000000028000000  //4
+};
 
 const uint64_t NUMBERS[] = {
     0x3c24242424243c00, // 0
@@ -208,41 +194,37 @@ void setRinaBoard(int row, int col, boolean state)
     led.setLed(addr_tbl[row][col], row_tbl[row][col], col_tbl[row][col], state);
 }
 
-void showFixedRefreashDirection(){
-    for(int i = 0; i < 16; i++){
-        for(int j = 0; j < 24; j++){
-            setRinaBoard(i, j, true);
-            delay(30);
-        }
-    }
-    for(int i = 0; i < 16; i++){
-        for(int j = 0; j < 24; j++){
-            setRinaBoard(i, j, false);
-        }
-    }
-}
 
 void showRefreashDirection()
 {
-    for (int i = 0; i < 6; i++){
-        for (int j = 0; j < 8; j++){
-            for (int k = 0; k < 8; k++){
+    for (int i = 0; i < 6; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            for (int k = 0; k < 8; k++)
+            {
                 led.setLed(i, j, k, 0);
             }
         }
     }
-    for (int i = 0; i < 6; i++){
-        for (int j = 0; j < 8; j++){
-            for (int k = 0; k < 8; k++){
+    for (int i = 0; i < 6; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            for (int k = 0; k < 8; k++)
+            {
                 led.setLed(i, j, k, 1);
-                delay(30);
+                delay(3);
             }
         }
     }
     delay(500);
-    for (int i = 0; i < 6; i++){
-        for (int j = 0; j < 8; j++){
-            for (int k = 0; k < 8; k++){
+    for (int i = 0; i < 6; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            for (int k = 0; k < 8; k++)
+            {
                 led.setLed(i, j, k, 0);
             }
         }
@@ -251,9 +233,11 @@ void showRefreashDirection()
 
 void setLeftEye(uint64_t image)
 {
-    for (int i = 0; i < 8; i++){
+    for (int i = 0; i < 8; i++)
+    {
         byte row = (image >> i * 8) & 0xFF;
-        for (int j = 0; j < 8; j++){
+        for (int j = 0; j < 8; j++)
+        {
             setMemory(i, j + 2, bitRead(row, j));
         }
     }
@@ -261,9 +245,11 @@ void setLeftEye(uint64_t image)
 
 void setRightEye(uint64_t image)
 {
-    for (int i = 0; i < 8; i++){
+    for (int i = 0; i < 8; i++)
+    {
         byte row = (image >> i * 8) & 0xFF;
-        for (int j = 0; j < 8; j++){
+        for (int j = 0; j < 8; j++)
+        {
             setMemory(i, 21 - j, bitRead(row, j));
         }
     }
@@ -271,9 +257,11 @@ void setRightEye(uint64_t image)
 
 void setEyes(uint64_t image)
 {
-    for (int i = 0; i < 8; i++){
+    for (int i = 0; i < 8; i++)
+    {
         byte row = (image >> i * 8) & 0xFF;
-        for (int j = 0; j < 8; j++){
+        for (int j = 0; j < 8; j++)
+        {
             setMemory(i, j + 2, bitRead(row, j));
             setMemory(i, 21 - j, bitRead(row, j));
         }
@@ -282,9 +270,11 @@ void setEyes(uint64_t image)
 
 void setCheeks(uint64_t image)
 {
-    for (int i = 3; i < 5; i++){
+    for (int i = 3; i < 5; i++)
+    {
         byte row = (image >> i * 8) & 0xFF;
-        for (int j = 0; j < 8; j++){
+        for (int j = 0; j < 8; j++)
+        {
             setMemory(i + 5, j, bitRead(row, j));
             setMemory(i + 5, 23 - j, bitRead(row, j));
         }
@@ -293,9 +283,11 @@ void setCheeks(uint64_t image)
 
 void setMouth(uint64_t image)
 {
-    for (int i = 0; i < 8; i++){
+    for (int i = 0; i < 8; i++)
+    {
         byte row = (image >> i * 8) & 0xFF;
-        for (int j = 0; j < 8; j++){
+        for (int j = 0; j < 8; j++)
+        {
             setMemory(i + 8, j + 4, bitRead(row, j));
             setMemory(i + 8, 19 - j, bitRead(row, j));
         }
@@ -304,7 +296,8 @@ void setMouth(uint64_t image)
 
 void setFace(int eyeL, int eyeR, int mouth, int cheek)
 {
-    if (eyeL >= eye_num || eyeL >= eye_num || mouth >= mouth_num || cheek >= cheek_num){
+    if (eyeL >= eye_num || eyeL >= eye_num || mouth >= mouth_num || cheek >= cheek_num)
+    {
         Serial.println("array out of bounds");
         return;
     }
@@ -316,9 +309,12 @@ void setFace(int eyeL, int eyeR, int mouth, int cheek)
 
 void displayMemory()
 {
-    for (int i = 0; i < 16; i++){
-        for (int j = 0; j < 3; j++){
-            for (int t = 0; t < 8; t++){
+    for (int i = 0; i < 16; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            for (int t = 0; t < 8; t++)
+            {
                 setRinaBoard(i, j * 8 + t, bitRead(vMemory[i][j], t));
             }
         }
@@ -330,17 +326,21 @@ int cur_face[4];
 /*put num in "num1,num2,num3,num4," into numArr[4]*/
 void numStr_to_numArray(const char *numStr, int *numArr, int numArrLen)
 {
-    if (nullptr == numStr || nullptr == numArr){
+    if (nullptr == numStr || nullptr == numArr)
+    {
         Serial.println("nullptr");
         return;
     }
     boolean flag = false;
-    for (int i = 0; i < 40; i++){
-        if ('\0' == numStr[i]){
+    for (int i = 0; i < 40; i++)
+    {
+        if ('\0' == numStr[i])
+        {
             flag = true;
         }
     }
-    if (false == flag){
+    if (false == flag)
+    {
         Serial.println("numStr too long");
         return;
     }
@@ -349,12 +349,15 @@ void numStr_to_numArray(const char *numStr, int *numArr, int numArrLen)
     strcpy(temp, numStr);
     char *cp = temp;
     int face_part_index = 0;
-    while (temp[i] != '\0'){
-        if (',' == temp[i]){
+    while (temp[i] != '\0')
+    {
+        if (',' == temp[i])
+        {
             temp[i] = '\0';
             numArr[face_part_index] = atoi(cp);
             face_part_index++;
-            if (face_part_index > (numArrLen - 1)){
+            if (face_part_index > (numArrLen - 1))
+            {
                 return;
             }
             cp = &temp[i + 1];
@@ -370,7 +373,7 @@ void printIpOnLeftEye()
     {
         return;
     }
-    for (unsigned int i = 0; p[i] != '\0'; i++)
+    for (int i = 0; p[i] != '\0'; i++)
     {
         if (i >= sizeof(cur_ip))
         {
@@ -421,8 +424,9 @@ void setup()
         /* and clear the display */
         led.clearDisplay(address);
     }
-    //showRefreashDirection();
-    //showFixedRefreashDirection();
+    showRefreashDirection();
+    setFace(1,1,1,0);
+    displayMemory();
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED)
@@ -439,6 +443,8 @@ void setup()
     // Serial.println(cur_ip);
     //printIpOnLeftEye();
     Udp.begin(localPort);
+    setFace(3,3,2,2);
+    displayMemory();
 }
 // int i = 0;
 void loop()
@@ -463,6 +469,9 @@ void loop()
         if (0 == strcmp("RinaBoardUdpTest", packetBuffer))
         {
             Serial.println("RinaBoardGetTestMessage");
+            Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
+            Udp.write(ReplyBuffer);
+            Udp.endPacket();  
         }
         else
         {
@@ -473,10 +482,10 @@ void loop()
             }
             setFace(cur_face[0], cur_face[1], cur_face[2], cur_face[3]);
             displayMemory();
+            // Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
+            // Udp.write('a');
+            // Udp.endPacket(); 
         }
-        Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
-        Udp.write(ReplyBuffer);
-        Udp.endPacket();  
     }
     // setFace(face[i].eyeL+1, face[i].eyeR+1, face[i].mouth+1, face[i].cheek+1);
     // displayMemory();

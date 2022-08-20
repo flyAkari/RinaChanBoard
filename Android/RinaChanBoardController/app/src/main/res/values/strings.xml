@@ -9,4 +9,15 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_music_player">MusicPlayer</string>
+
+    <string name="ip_format_wrong">IP格式错误</string>
+    <string name="check_connection">设定IP</string>
+    <string name="manual_assembly">自定义表情</string>
+    <string name="preset_live">预置Live表情</string>
+    <string name="poppin_up">Poppin\'Up</string>
+    <string name="eye_sync">左右眼同步</string>
+    <string name="auto_send">自动发送</string>
+    <string name="send">发送</string>
+    <string name="stop">停止</string>
 </resources>

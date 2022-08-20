@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".PresetLiveActivity">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:src="@drawable/fullbg"/>
+        <ImageView
+            android:id="@+id/iv_left_eye_live"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="26.9dp"
+            android:layout_marginTop="0.5dp" />
+        <ImageView
+            android:id="@+id/iv_right_eye_live"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="173.1dp"
+            android:layout_marginTop="0.5dp" />
+        <ImageView
+            android:id="@+id/iv_left_cheek_live"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="2.5dp"
+            android:layout_marginTop="61.2dp" />
+        <ImageView
+            android:id="@+id/iv_right_cheek_live"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="197.5dp"
+            android:layout_marginTop="61.2dp" />
+        <ImageView
+            android:id="@+id/iv_left_mouth_live"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="51dp"
+            android:layout_marginTop="98dp" />
+        <ImageView
+            android:id="@+id/iv_right_mouth_live"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="149dp"
+            android:layout_marginTop="98dp" />
+
+    </FrameLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <Button
+            android:id="@+id/btn_poppinup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/poppin_up"
+            android:textAllCaps="false"
+            android:textSize="16sp"/>
+
+        <Button
+            android:id="@+id/btn_stop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/stop"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
